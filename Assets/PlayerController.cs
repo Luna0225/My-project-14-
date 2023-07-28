@@ -24,8 +24,23 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("マウス座標:" + Input.mousePosition);
         Debug.Log(characterController.isGrounded ? "地上にいます" : "空中にいます");
         //入力軸による移動処理(完成を無視しているのできびきび動く)
-        moveVelocity.x = Input.GetAxisRaw("Horizontal") * moveSpeed;
-        moveVelocity.z = Input.GetAxisRaw("Vertical") * moveSpeed;
+        //moveVelocity.x = Input.GetAxisRaw("Horizontal") * moveSpeed;
+        //moveVelocity.z = Input.GetAxisRaw("Vertical") * moveSpeed;
+
+        //カメラの前方向のベクトル
+        Vector3 cameraForwardVector = Camera.main.transform.forward;
+        //カメラの右方向のベクトル
+        Vector3 cameraRightVector = Camera.main.transform.right;
+
+        //上下に移動しないようにy成分を０にする
+        cameraForwardVector.y = 0;
+        cameraRightVector.y = 0;
+
+        //WS入力の時はカメラの前方向に速度を持たせる
+        moveVelocity = cameraForwardVector * Input.GetAxis("Vertical") * moveSpeed;
+        //AD入力の時はカメラの横方向に速度を持たせる
+        moveVelocity += cameraRightVector * Input.GetAxis("Horizontal") * moveSpeed;
+        //Debug.Log(moveVelocity);
         //移動方向を向く
         cachedtransform.LookAt(transform.position + new Vector3(moveVelocity.x, 0, moveVelocity.z));
         if (characterController.isGrounded)
@@ -40,7 +55,8 @@ public class PlayerController : MonoBehaviour
         else
         {
             //重力による加速
-            moveVelocity.y += Physics.gravity.y * Time.deltaTime;
+            //moveVelocity.y += Physics.gravity.y * Time.deltaTime;
+            //Debug.Log(Physics.gravity.y);
         }
         //オブジェクトを動かす
         characterController.Move(moveVelocity * Time.deltaTime);
