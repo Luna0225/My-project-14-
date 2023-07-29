@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     private Transform cachedtransform; //transformのキャッシュ
     private Vector3 moveVelocity; //キャラクターの移動速度の情報
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -28,19 +30,22 @@ public class PlayerController : MonoBehaviour
         //moveVelocity.z = Input.GetAxisRaw("Vertical") * moveSpeed;
 
         //カメラの前方向のベクトル
-        Vector3 cameraForwardVector = Camera.main.transform.forward;
+        Vector3 cameraForwardVector = Camera.main.transform.forward * Input.GetAxis("Vertical") * moveSpeed;
         //カメラの右方向のベクトル
-        Vector3 cameraRightVector = Camera.main.transform.right;
+        Vector3 cameraRightVector = Camera.main.transform.right * Input.GetAxis("Horizontal") * moveSpeed;
 
         //上下に移動しないようにy成分を０にする
-        cameraForwardVector.y = 0;
-        cameraRightVector.y = 0;
+        //cameraForwardVector.y = 0;
+        //cameraRightVector.y = 0;
 
         //WS入力の時はカメラの前方向に速度を持たせる
-        moveVelocity = cameraForwardVector * Input.GetAxis("Vertical") * moveSpeed;
+        //moveVelocity = cameraForwardVector * Input.GetAxis("Vertical") * moveSpeed;
+        moveVelocity.x = cameraForwardVector.x + cameraRightVector.x;
         //AD入力の時はカメラの横方向に速度を持たせる
-        moveVelocity += cameraRightVector * Input.GetAxis("Horizontal") * moveSpeed;
-        //Debug.Log(moveVelocity);
+        //moveVelocity += cameraRightVector * Input.GetAxis("Horizontal") * moveSpeed;
+        moveVelocity.z = cameraForwardVector.z + cameraRightVector.z;
+        //Debug.Log(moveVelocity.y);
+        //Debug.Log(moveVelocity.z);
         //移動方向を向く
         cachedtransform.LookAt(transform.position + new Vector3(moveVelocity.x, 0, moveVelocity.z));
         if (characterController.isGrounded)
@@ -55,10 +60,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             //重力による加速
-            //moveVelocity.y += Physics.gravity.y * Time.deltaTime;
+            moveVelocity.y += Physics.gravity.y * Time.deltaTime;
             //Debug.Log(Physics.gravity.y);
         }
         //オブジェクトを動かす
         characterController.Move(moveVelocity * Time.deltaTime);
+
+       
     }
 }

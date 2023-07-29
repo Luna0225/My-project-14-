@@ -420,7 +420,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783317731}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.020072794, y: 0.0000000010751822, z: -2.158626e-11, w: 0.99979854}
+  m_LocalRotation: {x: 0.020072794, y: -0.0000000010751822, z: 2.158626e-11, w: 0.99979854}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1131,7 +1131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1870579695}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.016258089, y: 0.000000017237678, z: 2.802887e-10, w: 0.99986786}
+  m_LocalRotation: {x: -0.016258087, y: -0.000000017237678, z: -2.8028868e-10, w: 0.99986786}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1322,13 +1322,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.7
-  m_Radius: 0.5
+  m_Height: 1.43
+  m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.794, z: 0}
 --- !u!1 &2143547157
 GameObject:
   m_ObjectHideFlags: 3
